@@ -7,13 +7,18 @@
 */
 #include<stdio.h>
 #include<stdlib.h>
+#include"libevent/include/event.h"
 
 #define DEBUG_CLIENT  1
+#define DEBUG_MAKEFILE 1
 
-int main(int argc, int *argv[])
+int 
+main(int argc, int *argv[])
 {
 	//authority right
-
+#if DEBUG_MAKEFILE 
+	printf("To text the Makefile is correct\n");
+#endif
 	//checking the network status
 
         //communicate with Server
