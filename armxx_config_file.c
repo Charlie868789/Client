@@ -15,12 +15,15 @@
 
 #define MAX_STRING_LEN 1024
 
+
+struct ModuleInfo ModInfo;
+
 //Reading Module Info from configuration file.
 int 
 ReadModinfo(struct ModuleInfo Mod)
 {
 	//Reading the Server IP  Address from  /etc/Moudle.ini
-	if( GetPrivateProfileString("Module", "ServerIP","",Mod.ModServerIp,1024,"/etc/Module.ini") <=0)
+	if( GetPrivateProfileString("Server", "IP","",Mod.ModServerIp,1024,"/etc/Module.ini") <=0)
 		return -1;
 }
 

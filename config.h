@@ -10,6 +10,7 @@
 *   nSize
 *   nDefault
 */
+
 struct ModuleInfo
 {
         //unsigned char *ModServion_maincomm;
@@ -17,6 +18,7 @@ struct ModuleInfo
         unsigned char *ModServerIp;
         //unsigned char *StationName;
 };
+
 
 int WritePrivateProfileString(
                         char *lpAppName,
