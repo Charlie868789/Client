@@ -15,6 +15,8 @@
 int 
 main(int argc, int *argv[])
 {
+	int sockfd=0;
+	
 	//authority right
 #if DEBUG_MAKEFILE 
 	printf("To text the Makefile is correct\n");
