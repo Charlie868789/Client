@@ -15,6 +15,7 @@
 #include<sys/types.h>
 #include<arpa/inet.h>
 #include<netinet/in.h>
+#include<sqlite3.h>
 #include"libevent/include/event.h"
 #include"config.h"
 #define DEBUG_CLIENT  1
@@ -22,7 +23,6 @@
 
 #define PORT_NUMBER 8080
 extern struct ModuleInfo ModInfo;
-
 int 
 main(int argc, int *argv[])
 {
@@ -31,6 +31,9 @@ main(int argc, int *argv[])
 	int portnumber=0;
 	struct hostent *host;
 	struct sockaddr_in serveraddr;
+	sqlite3 *db;
+	FILE *fd;
+	char sql[128]={0};
 	//authority right
 #if DEBUG_MAKEFILE 
 	printf("To text the Makefile is correct\n");
@@ -61,9 +64,19 @@ main(int argc, int *argv[])
                 fprintf(stderr,"Connect Error:%s\a\n",strerror(errno));  
                 exit(1);
         }
-
+	
+	//To connect database ,sqlite
+	memset(sql,'\0',128);
+	sqlite3_open("./data/location.db",&db);
+	strcpy(sql,"create table id(id INTEGER PRIMARY KEY, data TEXT)");
+	sqlite3_exec(db,sql,NULL,NULL,NULL);
 	//checking the network status
-
+	//endless loop
+	
+	while(1){
+		//check the location, then save to data base.
+		
+	}
         //communicate with Server
 
         //offline
