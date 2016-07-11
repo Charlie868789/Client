@@ -75,6 +75,8 @@ main(int argc, int *argv[])
 	
 	while(1){
 		//check the location, then save to data base.
+
+		// capture the GPS data from UART and other sensor data save to database.
 		
 	}
         //communicate with Server
