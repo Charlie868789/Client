@@ -19,7 +19,20 @@ struct ModuleInfo
         //unsigned char *StationName;
 };
 
+struct GPS_Data
+{
+	char Gps_time[20];
+	char Gps_sv;
+	char Gps_latitude[12];
+	char Gps_longitude[12];
+	//char Gps_warn;
+	char Gps_speed[5];
+	char Gps_date[8];// utc date
+};
 
+int GetGpsData(
+	struct GPS_Data gpsdata
+	);
 int WritePrivateProfileString(
                         char *lpAppName,
                         char *lpKeyName,

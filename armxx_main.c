@@ -18,11 +18,11 @@
 #include<sqlite3.h>
 #include"libevent/include/event.h"
 #include"config.h"
-#define DEBUG_CLIENT  1
-#define DEBUG_MAKEFILE 1
+#include"debug.h"
 
 #define PORT_NUMBER 8080
 extern struct ModuleInfo ModInfo;
+struct GPS_Data GpsData;
 int 
 main(int argc, int *argv[])
 {
@@ -75,7 +75,7 @@ main(int argc, int *argv[])
 	
 	while(1){
 		//check the location, then save to data base.
-
+		flag = GetGpsData(GpsData);
 		// capture the GPS data from UART and other sensor data save to database.
 		
 	}
