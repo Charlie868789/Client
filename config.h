@@ -15,7 +15,7 @@ struct ModuleInfo
 {
         //unsigned char *ModServion_maincomm;
         //unsigned char *ModServion_dataserver;
-        unsigned char *ModServerIp;
+        char *ModServerIp;
         //unsigned char *StationName;
 };
 

@@ -14,7 +14,7 @@
 #include<sys/types.h>
 #include<sys/stat.h>
 
-#define UART_PORT_NO 1
+#define UART_PORT_NO 4
 const int BUFF_SIZE = 512;
 int SectionID=0, i = 0;
 int open_port(int num);
@@ -22,7 +22,7 @@ int set_com_config(int fd, int baud_rate,int data_bits,char parity,int stop_bits
 int read_gps_data(int fd,struct GPS_Data);
 void print_info(struct GPS_Data);
 void GPS_resolve_GPRMC(char data,struct GPS_Data);
-const char * dev[]={"/dev/ttyS0","/dev/ttyS1","/dev/ttyS2"};
+const char * dev[]={"/dev/ttySAC0","/dev/ttySAC1","/dev/ttySAC2","/dev/ttySAC3","/dev/ttySAC4"};
 
 
 void print_info(struct GPS_Data Gps_Data)

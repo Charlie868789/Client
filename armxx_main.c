@@ -15,8 +15,8 @@
 #include<sys/types.h>
 #include<arpa/inet.h>
 #include<netinet/in.h>
-#include<sqlite3.h>
-#include"libevent/include/event.h"
+#include"sqlite3.h"
+#include"event.h"
 #include"config.h"
 #include"debug.h"
 
@@ -24,7 +24,7 @@
 extern struct ModuleInfo ModInfo;
 struct GPS_Data GpsData;
 int 
-main(int argc, int *argv[])
+main(int argc, char *argv[])
 {
 	int sockfd=0;
 	int flag=0;
@@ -32,7 +32,7 @@ main(int argc, int *argv[])
 	struct hostent *host;
 	struct sockaddr_in serveraddr;
 	sqlite3 *db;
-	FILE *fd;
+	//FILE *fd;
 	char sql[128]={0};
 	//authority right
 #if DEBUG_MAKEFILE 
@@ -64,7 +64,6 @@ main(int argc, int *argv[])
                 fprintf(stderr,"Connect Error:%s\a\n",strerror(errno));  
                 exit(1);
         }
-	
 	//To connect database ,sqlite
 	memset(sql,'\0',128);
 	sqlite3_open("./data/location.db",&db);
@@ -72,12 +71,10 @@ main(int argc, int *argv[])
 	sqlite3_exec(db,sql,NULL,NULL,NULL);
 	//checking the network status
 	//endless loop
-	
 	while(1){
 		//check the location, then save to data base.
 		flag = GetGpsData(GpsData);
 		// capture the GPS data from UART and other sensor data save to database.
-		
 	}
         //communicate with Server
 
