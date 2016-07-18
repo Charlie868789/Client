@@ -21,13 +21,13 @@ struct ModuleInfo
 
 struct GPS_Data
 {
-	char Gps_time[20];
-	char Gps_sv;
-	char Gps_latitude[12];
-	char Gps_longitude[12];
+	char *Gps_time;
+	char *Gps_sv;
+	char *Gps_latitude;
+	char *Gps_longitude;
 	//char Gps_warn;
-	char Gps_speed[5];
-	char Gps_date[8];// utc date
+	char *Gps_speed;
+	char *Gps_date;// utc date
 };
 
 int GetGpsData(

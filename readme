@@ -1,1 +1,3 @@
 This programming is used to capture data from the sensor nodes and save to database.
+
+	1, capture data : location, temperature, humity, using RS485/CAN connect sensor node and hosts

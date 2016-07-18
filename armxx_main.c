@@ -35,6 +35,12 @@ main(int argc, char *argv[])
 	//FILE *fd;
 	char sql[128]={0};
 	//authority right
+	GpsData.Gps_time = (char *)malloc(20);
+	GpsData.Gps_sv = (char *)malloc(2);
+	GpsData.Gps_latitude = (char *)malloc(12);
+	GpsData.Gps_longitude = (char *)malloc(12);
+	GpsData.Gps_speed = (char *)malloc(5);
+	GpsData.Gps_date = (char *)malloc(8);
 #if DEBUG_MAKEFILE 
 	printf("To text the Makefile is correct\n");
 #endif
