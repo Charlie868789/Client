@@ -1,3 +1,5 @@
 third-part/*
+data/*
+third-part-x86/*
 *.[ao]
 Client

@@ -30,8 +30,18 @@ struct GPS_Data
 	char *Gps_date;// utc date
 };
 
+struct Sensor_Data
+{
+	char *type;
+	char *sensordata;
+	char *reseverarea;
+};
+
 int GetGpsData(
 	struct GPS_Data gpsdata
+	);
+int GetSensorNodeData(
+	struct Sensor_Data sensordata
 	);
 int WritePrivateProfileString(
                         char *lpAppName,

@@ -16,13 +16,18 @@
 #include<arpa/inet.h>
 #include<netinet/in.h>
 #include"sqlite3.h"
+#include"mysqlite.h"
 #include"event.h"
 #include"config.h"
 #include"debug.h"
 
 #define PORT_NUMBER 8080
 extern struct ModuleInfo ModInfo;
+extern void print_gps_info(struct GPS_Data);
+// location
 struct GPS_Data GpsData;
+// other information
+struct Sensor_Data SensorData; 
 int 
 main(int argc, char *argv[])
 {
@@ -41,6 +46,7 @@ main(int argc, char *argv[])
 	GpsData.Gps_longitude = (char *)malloc(12);
 	GpsData.Gps_speed = (char *)malloc(5);
 	GpsData.Gps_date = (char *)malloc(8);
+#if 0
 #if DEBUG_MAKEFILE 
 	printf("To text the Makefile is correct\n");
 #endif
@@ -70,17 +76,31 @@ main(int argc, char *argv[])
                 fprintf(stderr,"Connect Error:%s\a\n",strerror(errno));  
                 exit(1);
         }
+#endif
 	//To connect database ,sqlite
 	memset(sql,'\0',128);
-	sqlite3_open("./data/location.db",&db);
+	// the first argv can be from user input
+	CALL_SQLITE(open("./data/database.db",&db));
+	//SQL LANGUAGE
 	strcpy(sql,"create table id(id INTEGER PRIMARY KEY, data TEXT)");
+	CALL_SQLITE(exec)
 	sqlite3_exec(db,sql,NULL,NULL,NULL);
 	//checking the network status
 	//endless loop
 	while(1){
 		//check the location, then save to data base.
-		flag = GetGpsData(GpsData);
+		//flag = GetGpsData(GpsData);
+#ifdef DEBUG_CLIENT
+		//print_gps_info(GpsData);
+#endif
+
+		//Modbus protcol, capture data from sensor node. Modbus Protocl
+		flag = GetSensorData(SensorData);
+
 		// capture the GPS data from UART and other sensor data save to database.
+		/*
+		* store the data to database, including location, temperture etc. 
+		*/
 	}
         //communicate with Server
 

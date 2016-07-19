@@ -20,19 +20,21 @@ int SectionID=0, i = 0;
 int open_port(int num);
 int set_com_config(int fd, int baud_rate,int data_bits,char parity,int stop_bits);
 int read_gps_data(int fd,struct GPS_Data);
-void print_info(struct GPS_Data);
+void print_gps_info(struct GPS_Data);
 void GPS_resolve_GPRMC(char data,struct GPS_Data);
 const char * dev[]={"/dev/ttySAC0","/dev/ttySAC1","/dev/ttySAC2","/dev/ttySAC3","/dev/ttySAC4"};
 
 
-void print_info(struct GPS_Data Gps_Data)
+void print_gps_info(struct GPS_Data Gps_Data)
 {
+#ifdef DEBUG_CLIENT
     printf("Now the receive time is %s\n",Gps_Data.Gps_time);
-    printf("The star is %c 3\n",Gps_Data.Gps_sv);
+    printf("The star is %s 3\n",Gps_Data.Gps_sv);
     printf("The earth latitude is :%s\n",Gps_Data.Gps_latitude);
     printf("The earth longitude is :%s\n",Gps_Data.Gps_longitude);
     printf("The train speed is:%s km/h\n",Gps_Data.Gps_speed);
     printf("The date is:%s\n",Gps_Data.Gps_date);
+#endif
 }
 void GPS_resolve_GPRMC(char data, struct GPS_Data GPS_Data)
 {
@@ -56,9 +58,9 @@ void GPS_resolve_GPRMC(char data, struct GPS_Data GPS_Data)
 				    break;
 			    case 2:
 				    if(data=='A')
-					GPS_Data.Gps_sv='>';
+					GPS_Data.Gps_sv=">";
 				    else
-					GPS_Data.Gps_sv='<';
+					GPS_Data.Gps_sv="<";
 				    break;
 			    case 3://3158.4608
 				    GPS_Data.Gps_latitude[++i]=data;
@@ -110,25 +112,28 @@ int read_gps_data(int fd, struct GPS_Data GpsData)
 		{
 
 			strcat(dest,buffer);
+#ifdef DEBUG_CLIENT
+			//strcat(dest,"$GPRMC,092427.604,V,4002.1531,N,11618.3097,E,0.000,0.00,280812,,E,N*08");
+#endif
 		    	if(buffer[0]=='\n')
 		    	{
 		        	i=0;
 				if(strncmp(dest,array,6)==0)
 				{
-				       printf("%s",dest);
+				       printf("%s\n",dest);
 				       len=strlen(dest);
 				       for(k=0;k<len;k++)
 				       {
 				            GPS_resolve_GPRMC(dest[k],GpsData);
 				       }
 				       SectionID=0;
-				       print_info(GpsData);
+				       //print_gps_info(GpsData);
 		        	}
 		        	bzero(dest,sizeof(dest));
 		    	}
 
 		}
-	}while(1);
+	}while(SectionID);
 	close(fd);
 }
 
@@ -235,7 +240,7 @@ int open_port(int com_port)
 		printf("serial port number is error\n");
 		return -1;
 	}
-	if((uart_fd = open(dev[com_port-1],O_RDWR|O_NOCTTY|O_NDELAY))<0)
+	if((uart_fd = open(dev[com_port-1],O_RDWR|O_NOCTTY|O_NDELAY|O_NONBLOCK))<0)
 	{
 		fprintf(stderr,"cannot open the serial port\n");
 		return -1;
