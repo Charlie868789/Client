@@ -15,6 +15,7 @@ int GetSensorData(struct Sensor_Data sensordata)
 
 	//recv data from sensor node
 
-	//  
+	//libmodbus is used to communication between the sensor node and hosts.
+ 
 	return 1;
 }
